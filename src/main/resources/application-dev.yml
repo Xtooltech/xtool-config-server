@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: xtool-config-server
+  main:
+    allow-bean-definition-overriding: true
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/Xtooltech/svconfs.git
+          username: Xtooltech
+          password: 13870972139abc
+          searchPaths: iot
+    consul:
+      host: 19.87.22.12
+      port: 8500
+      discovery:
+        register: true
+        hostname: 19.87.22.12
+        serviceName: ${spring.application.name}
+        healthCheckPath: /actuator/health
+        healthCheckInterval: 15s
+        tags: urlprefix-/${spring.application.name}
+        instanceId: ${spring.application.name}:${vcap.application.instance_id:${spring.application.instance_id:${random.value}}}          
+
+server:
+  port: 8720
